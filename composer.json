@@ -1,0 +1,25 @@
+{
+    "name": "jemiyet/web",
+    "description": "Jemiyet Web Application Package",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^12.0",
+        "inertiajs/inertia-laravel": "^2.0.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jemiyet\\Web\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Jemiyet\\Web\\WebServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+} 
