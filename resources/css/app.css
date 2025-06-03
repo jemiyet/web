@@ -2,30 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom scrollbar for dark theme */
-::-webkit-scrollbar {
+/* Base styling */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 
-::-webkit-scrollbar-track {
-    background: #1a1a1a;
+.dark ::-webkit-scrollbar-track {
+    background: #000000;
 }
 
-::-webkit-scrollbar-thumb {
+.dark ::-webkit-scrollbar-thumb {
     background: #374151;
     border-radius: 3px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.dark ::-webkit-scrollbar-thumb:hover {
     background: #4b5563;
 }
 
-/* Custom focus styles */
-.focus\:ring-twitter:focus {
-    --tw-ring-color: #1DA1F2;
+/* Light mode scrollbar */
+.light ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
 }
 
-/* Animation for tweets */
+.light ::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+
+.light ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.light ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Focus styles */
+.focus\:ring-jemiyet:focus {
+    --tw-ring-color: #8b5cf6;
+}
+
+/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -37,6 +68,153 @@
     }
 }
 
-.tweet-animation {
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-fade-in {
     animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-in-left {
+    animation: slideInLeft 0.3s ease-out;
+}
+
+.animate-slide-in-right {
+    animation: slideInRight 0.3s ease-out;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+}
+
+.animate-pulse-slow {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom gradient backgrounds */
+.gradient-jemiyet {
+    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+}
+
+.gradient-jemiyet-subtle {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+}
+
+/* Backdrop blur support */
+.backdrop-blur-safari {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+/* Custom button styles */
+.btn-primary {
+    @apply bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-2 px-6 rounded-full 
+           hover:shadow-lg transform hover:scale-105 transition-all duration-200 
+           focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2;
+}
+
+.btn-secondary {
+    @apply bg-gray-200 text-gray-800 font-semibold py-2 px-6 rounded-full 
+           hover:bg-gray-300 transition-all duration-200 
+           focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2;
+}
+
+.dark .btn-secondary {
+    @apply bg-gray-800 text-gray-200 hover:bg-gray-700 focus:ring-gray-600;
+}
+
+/* Card styles */
+.card {
+    @apply bg-white rounded-2xl shadow-sm border border-gray-100 p-6 
+           hover:shadow-md transition-shadow duration-200;
+}
+
+.dark .card {
+    @apply bg-gray-900 border-gray-800 shadow-gray-900/10;
+}
+
+/* Input styles */
+.input-primary {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 
+           focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent
+           transition-all duration-200 bg-white text-gray-900;
+}
+
+.dark .input-primary {
+    @apply bg-gray-800 border-gray-700 text-white focus:ring-purple-400;
+}
+
+/* Avatar styles */
+.avatar {
+    @apply rounded-full object-cover;
+}
+
+.avatar-story {
+    @apply rounded-full object-cover ring-2 ring-white ring-offset-2;
+}
+
+.dark .avatar-story {
+    @apply ring-gray-800 ring-offset-gray-900;
+}
+
+/* Loading states */
+.loading-skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+}
+
+.dark .loading-skeleton {
+    @apply bg-gray-800;
+}
+
+/* Responsive text scaling */
+@media (max-width: 640px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
 } 

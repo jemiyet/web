@@ -1,49 +1,30 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Jemiyet\Posts\Controllers\PostController;
-use Jemiyet\Groups\Controllers\GroupController;
-use Illuminate\Support\Facades\Auth;
-use Jemiyet\Core\Models\User;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes - API Controller'larını kullan
+| Web Routes - Livewire Components
 |--------------------------------------------------------------------------
 */
 
-// Public login routes
-Route::get('/login', function() {
-    return inertia('Web/Login');
-})->name('login');
+Route::middleware(['web'])->group(function () {
+    // Livewire Pages - Auth middleware will be handled by Laravel
+    Route::get('/home', \Jemiyet\Web\Livewire\Pages\Home::class)->name('home.index');
+    Route::get('/', \Jemiyet\Web\Livewire\Pages\Home::class)->name('home');
 
-Route::post('/login', function(\Illuminate\Http\Request $request) {
-    // For demo purposes, just login with any existing user
-    $user = User::first();
-    Auth::login($user);
-    return redirect()->route('home.index');
-})->name('login.post');
+    Route::get('/groups', \Jemiyet\Web\Livewire\Pages\Groups::class)->name('groups.index');
+    Route::get('/events', \Jemiyet\Web\Livewire\Pages\Events::class)->name('events.index');
+    Route::get('/venues', \Jemiyet\Web\Livewire\Pages\Venues::class)->name('venues.index');
+    Route::get('/privileges', \Jemiyet\Web\Livewire\Pages\Privileges::class)->name('privileges.index');
+    Route::get('/notifications', \Jemiyet\Web\Livewire\Pages\Notifications::class)->name('notifications.index');
 
-Route::post('/logout', function() {
-    Auth::logout();
-    return redirect()->route('login');
-})->name('logout');
+    // Placeholder routes for other sections
+        Route::get('/profile', function() {
+        return view('jemiyet/web::pages.coming-soon', ['title' => 'Profile']);
+        })->name('profile.show');
 
-// Authentication middleware for all routes
-Route::middleware(['web_auth'])->group(function () {
-    
-    // Home page - Posts API'sini kullan
-    Route::get('/home', [PostController::class, 'index'])->name('home.index');
-    
-    // Groups - Groups API'sini kullan
-    Route::get('/groups', [GroupController::class, 'index'])->name('groups.index');
-    
-    // Diğer route'lar için şimdilik placeholder
-    Route::get('/events', function() {
-        return inertia('Web/Events', ['events' => []]);
-    })->name('events.index');
-    
-    Route::get('/profile', function() {
-        return inertia('Web/Profile', ['user' => auth()->user()]);
-    })->name('profile.show');
+    Route::get('/settings', function() {
+        return view('jemiyet/web::pages.coming-soon', ['title' => 'Settings']);
+    })->name('settings.index');
 }); 
